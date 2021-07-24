@@ -12,8 +12,12 @@ export const listaClientes = () => {
     // Com a fetch API não precisamos usar o XMLHttpRequest.
     return fetch(`http://localhost:3000/profile`)
     .then(resposta => {
-        // 'resposta' é uma string e precisamos usar .json para transformá-la num objeto JS.
-        return resposta.json()
+        // Se der tudo certo com a nossa requisição
+        if(resposta.ok) {
+            // 'resposta' é uma string e precisamos usar .json para transformá-la num objeto JS.
+            return resposta.json()
+        }
+        throw new Error ("Não foi possível listar os clientes") // GET http://localhost:3000/profie 404 (Not Found)
     })
 }
 
@@ -52,7 +56,10 @@ export const criaCliente = (nome, email) => {
 
     })
     .then(resposta => {
-        return resposta.body;
+        if (resposta.ok) {
+            return resposta.body;
+        }
+        throw new Error ("Não foi possível criar um cliente") // GET http://localhost:3000/profie 404 (Not Found)
     })
 }
 
@@ -65,6 +72,12 @@ export const removeCliente = function (id) {
     return fetch(`http://localhost:3000/profile/${id}`, {
         method: 'DELETE'
     })
+    .then(resposta => {
+        // Se o resultado da requisição não der certo
+        if(!resposta.ok) {
+            throw new Error ("Não foi possível deletar o cliente") // GET http://localhost:3000/profie 404 (Not Found)
+        }
+    })
 }
 
 
@@ -75,8 +88,12 @@ export const removeCliente = function (id) {
 export const detalhaCliente = function(id) {
     return fetch(`http://localhost:3000/profile/${id}`)
     .then(resposta => {
-        // 'resposta' é uma string e precisamos usar .json para transformá-la num objeto JS.
-        return resposta.json()
+        if (resposta.ok) {
+            // 'resposta' é uma string e precisamos usar .json para transformá-la num objeto JS.
+            return resposta.json()
+        }
+
+        throw new Error ("Não foi possível detalhar o cliente")
     })
 }
 
@@ -95,6 +112,7 @@ export const atualizaCliente = (id, email, nome) => {
             email: email
         })
     })
+    // Aqui, vamos fazer sem o 'if', para mostrar que seu uso não é obrogatório.
     .then(resposta => {
         return resposta.json()
     })

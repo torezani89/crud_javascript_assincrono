@@ -46,11 +46,18 @@ listaClientes()
 */
 
 // Vamos fazer o forEach sobre o retorno de listaClientes() utilizando o async/await
-function renderiza() {
-    const listaClientes = listaClientes()
-    listaClientes.forEach(element => {
-        tabela.appendChild(criaNovaLinha(element.nome, element.email, element.id))
-    });
+// Vamos usar também o try/catch, mas não é obrigatório.
+async function renderiza() {
+    try {
+        const resultadolistaClientes = await listaClientes()
+        resultadolistaClientes.forEach(element => {
+            tabela.appendChild(criaNovaLinha(element.nome, element.email, element.id))
+        })
+    }
+    catch(erro) {
+        console.log(erro)
+        window.location.href = "../telas/erro.html"
+    }
 }
 
 renderiza()

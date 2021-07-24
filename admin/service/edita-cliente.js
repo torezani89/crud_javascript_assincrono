@@ -15,21 +15,51 @@ const id = pegaURL.searchParams.get('id')
 const inputNome = document.querySelector('[data-nome]')
 const inputEmail = document.querySelector('[data-email]')
 
-/* Colocar os dados do cliente escolhido nos campos a serem editados. O cliente escolhido é identificado pelo id */
-detalhaCliente(id)
-.then(dados => {
+try{
+    /* Colocar os dados do cliente escolhido nos campos a serem editados. O cliente escolhido é identificado pelo id */
+    detalhaCliente(id)
+    .then(dados => {
+        inputNome.value = dados.nome
+        inputEmail.value = dados.email
+    /*
+    Também pode ser feito com async/await:
+    const dados = await detalhaCliente(id)
     inputNome.value = dados.nome
     inputEmail.value = dados.email
-})
+    */
+    })
+}
+catch (erro) {
+    console.log(erro)
+    window.location.href = "..telas/erro.html"
+}
 
 // <form class="flex flex--coluna" data-form> em cadastra-cliente.js
 const formulario = document.querySelector('[data-form]')
 
+// Ao submeter o form, atualizaCliente() em cliente-service.js será chamada, passando os parâmetros abaixo.
 formulario.addEventListener('submit', (evento) => {
     evento.preventDefault()
-
-    atualizaCliente(id, inputEmail.value, inputNome.value)
-    .then(function() {
+    // Não é necesário usar try/catch.
+    try {
+        atualizaCliente(id, inputEmail.value, inputNome.value)
+        .then(function() {
+            window.location.href = '../telas/edicao_concluida.html'
+        })
+    }
+/*
+Também poderia ser feito com async/await:
+formulario.addEventListener('submit', async (evento) => {
+    evento.preventDefault()
+    try {
+        await atualizaCliente(id, inputEmail.value, inputNome.value)
         window.location.href = '../telas/edicao_concluida.html'
-    })
+
+    }
+})
+*/
+    catch (erro) {
+        console.log(erro)
+        window.location.href = "../telas/erro.html"
+    }
 })
