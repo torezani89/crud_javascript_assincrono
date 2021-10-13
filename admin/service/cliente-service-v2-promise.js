@@ -75,7 +75,7 @@ const criaNovaLinha = function(nome, email) {
 // Executar o json-server:
 // 1) abrir o terminal do VS Code (Ctrl+J),
 // 2) entrar na pasta 'admin', (dica: dar Ctrl+J com lista-cliente.html aberto)
-// 3) comando: npm install (somente na primeira vez),np
+// 3) comando: npm install (somente na primeira vez),
 // 4) comando: npx json-server --watch db.json.
 // É necessário colocar o npx, pois o json-serve não está instalado globalmente na nossa máquina.
 // Ctrl+C: parar a execução do json-server.
