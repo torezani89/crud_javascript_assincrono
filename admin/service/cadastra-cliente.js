@@ -10,13 +10,12 @@ formulario.addEventListener('submit', function(evento) {
 
     evento.preventDefault();
 
-    // Procurar os elementos do formulario:
+    // Pegar o valor dos inputs do form:
     const nome = evento.target.querySelector('[data-nome]').value
     const email = evento.target.querySelector('[data-email]').value
     // Podemos procurar diretamente no elemento (form) usando evento.target, ao invés de procurar pelo document.
 
-    // criaCliente insere os dados do novo cliente no body do endereço da nossa requisição:
-    // http://localhost:3000/profile
+    // criaCliente insere os dados do novo cliente no body do endereço da nossa requisição: http://localhost:3000/profile
     criaCliente(nome,email)
     // Ir para a tela de cadastro concluído, após criar o cliente.
     .then(function() {
@@ -24,6 +23,6 @@ formulario.addEventListener('submit', function(evento) {
     })
 
     // Não esqueça de chamar o script em cadastra_cliente.html após o fechamento do <body>:
-    // <script type="module" src="../service/cliente-service.js"></script>
+    // <script type="module" src="../service/cadastra-cliente.js"></script>
 
 })
