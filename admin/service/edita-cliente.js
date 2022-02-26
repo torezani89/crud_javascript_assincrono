@@ -1,6 +1,6 @@
 import { detalhaCliente, atualizaCliente } from "./cliente-service.js"
 
-// Devemos chamar o script javascript edita-cliente.js em edita_cliente.html.
+// Devemos chamar o script edita-cliente.js em edita_cliente.html.
 
 /* Em <a href="../telas/edita_cliente.html" (no template literal em exibe-cliente.js) adicionamos ?id=${id}
 que é uma 'query string' que coloca o 'id' do cliente clicado na url da página. Essa identificação será
@@ -15,7 +15,7 @@ const id = pegaURL.searchParams.get('id')
 const inputNome = document.querySelector('[data-nome]')
 const inputEmail = document.querySelector('[data-email]')
 
-try{
+try {
     /* Colocar os dados do cliente escolhido nos campos a serem editados. O cliente escolhido é identificado pelo id */
     detalhaCliente(id)
     .then(dados => {
@@ -34,7 +34,8 @@ catch (erro) {
     window.location.href = "..telas/erro.html"
 }
 
-// <form class="flex flex--coluna" data-form> em cadastra-cliente.js
+// <form class="flex flex--coluna" data-form> em cadastra_cliente.html
+// O selector de atributos deve estar em colchetes [].
 const formulario = document.querySelector('[data-form]')
 
 // Ao submeter o form, atualizaCliente() em cliente-service.js será chamada, passando os parâmetros abaixo.
