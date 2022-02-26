@@ -3,7 +3,7 @@ import {listaClientes} from "../service/cliente-service.js"
 /* Vamos exibir os clientes na tela. Para isso, vamos usar as informações armazenadas na API e criar uma
 linha da tabela para cada cliente que existir na API chamando criaNovaLinha e passando os dados de
 nome, email e id que estão armazenados na API (ver db.json). A id não será exibida na tela, mas servirá apenas
-para identificar o cliente ao chamar removeCliente() */
+para identificar o cliente para fins de editá-lo ou deletá-lo. */
 const criaNovaLinha = (nome, email, id) => {
 
     const linhaNovoCliente = document.createElement('tr')
@@ -23,7 +23,7 @@ const criaNovaLinha = (nome, email, id) => {
     linhaNovoCliente.innerHTML = conteudo
     /* Cria um data-attribute chamado 'data-id' e atribui o valor de 'id' que está em db.json e é criado para
     cada cliente. Observe que id não será mostrado no template literal ao criar a nova linha <tr>, ele será apenas
-    uma data-attribute para identificar a linha pela id do cliente*/
+    uma data-attribute para identificar a linha pela id do cliente. */
     linhaNovoCliente.dataset.id = id
 
     return linhaNovoCliente
@@ -56,8 +56,13 @@ async function renderiza() {
     }
     catch(erro) {
         console.log(erro)
-        window.location.href = "../telas/erro.html"
+        // window.location.href = "../telas/erro.html"
     }
 }
+
+/* Sem usar async/await:
+TypeError: resultadolistaClientes.forEach is not a function
+Isso ocorre por que o JS tentará executar o forEach sobre resultadolistaClientes antes de concluir a execução de listaClientes()
+cujo retorno/resultado é justamente o array de clientes sobre o qual precisamos iterar com o forEach */
 
 renderiza()
