@@ -8,11 +8,11 @@ tabela.addEventListener('click', async (evento) => {
     if(ehBotaoDeletar) {
         // Não é obrigatório usar try/catch.
         try {
-            // Deletar o cliente da API (db.json) e a linha no html que mostra os dados dele.
-            // Encontar o elemento pai mais próximo da <td> que tem o botão de deletar, que é a <tr> que queremos deletar.
+            /* Para deletar a linha <tr> da table que mostra os dados do cliente, precisamos pegar
+            o elemento pai <tr> da <td> que contém o botão deletar clicado. */
             const linhaCliente = evento.target.closest('[data-id]')
             const id = linhaCliente.dataset.id
-            // Remover o cliente do servidor db.json
+            // Remover o cliente do servidor db.json.
             // Utilizando 'async/await' não precisamos usar o método .then.
             await removeCliente(id)
             // Remover o elemento html <tr> que é a linha que contém o cliente.
