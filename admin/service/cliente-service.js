@@ -1,5 +1,5 @@
 /* OBS: Para executar o programa é necessário executar o json-server. Ver comentários ao final
-do tópico LISTA DE CLIENTES. */
+do tópico LISTA CLIENTES. */
 // -------------------------------------------------------------------------------------------------
 
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< LISTA CLIENTES >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -25,13 +25,15 @@ export const listaClientes = () => {
 // Para localizar o endereço da nossa requisição (http://localhost:3000/profile) precisamos executar o json-server.
 // Executar o json-server:
 // 1) abrir o terminal do VS Code (Ctrl+J)
-// 2) entrar na pasta 'admin', (dica: dar Ctrl+J com lista-cliente.html aberto)
+// 2) entrar na pasta 'admin', (dica: dar Ctrl+J com lista-cliente.html aberto):
+// C:\Users\Carol\OneDrive\Documentos\Programacao\JavaScript\crud-com-JavaScript-assincrono\projeto_inicial\admin>
 // 3) comando: npm install (somente na primeira vez)
 // 4) comando: npx json-server --watch db.json
-// É necessário colocar o npx, pois o json-serve não está instalado globalmente na nossa máquina.
+// É necessário colocar o npx, pois o json-server não está instalado globalmente na nossa máquina.
 // Ctrl+C: parar a execução do json-server.
 // Executar novamente: npx json-server --watch db.json. (não precisa mais fazer o npm install).
-// Aparece uma carinha feliz quando ele é executado. Abrir o console do navegador para ver se leu os dados.
+// Aparece uma carinha feliz quando ele é executado: \{^_^}/ hi!
+// Abrir o console do navegador para ver se leu os dados.
 
 
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< CRIA CLIENTE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -44,11 +46,11 @@ export const criaCliente = (nome, email) => {
         headers: {
             'Content-Type': 'application/json'
         },
-        // Vamos criar no body novos dados chamados nome e email que vão receber os valores nome e email.
-        // http://localhost:3000/profile é um endereço html, e portanto, possui um body como qualquer página html
-        // onde é mostrado o conteúdo/informações. Vamos armazenar os dados 'nome' e 'email' do novo cliente
-        // no body desta página html que serve como um servidor para armazenar informações. Com os métodos
-        // GET e POST, nós pegamos dados desse servidor ou enviamos dados para ele.
+        /* Vamos criar no body novos dados chamados nome e email que vão receber os valores nome e email.
+        http://localhost:3000/profile é um endereço html, e portanto, possui um body como qualquer página html
+        onde é mostrado seu conteúdo. Vamos armazenar os dados 'nome' e 'email' do novo cliente
+        no body desta página html que serve como um servidor para armazenar informações. Com os métodos
+        GET e POST, nós pegamos dados desse servidor ou enviamos dados para ele. */
         body: JSON.stringify({
             nome: nome,
             email: email,
@@ -67,13 +69,12 @@ export const criaCliente = (nome, email) => {
 
 // removeCliente é chamado em remove-cliente.js
 export const removeCliente = function (id) {
-    /* Cada cliente recebe um id em db.json. O $ serve para que o template literal reconheça
-    'id' como um objeto JavaScript válido. */
+    /* Cada cliente recebe um id em db.json. Vamos pegar o cliente através dessa id. */
     return fetch(`http://localhost:3000/profile/${id}`, {
         method: 'DELETE'
     })
     .then(resposta => {
-        // Se o resultado da requisição não der certo
+        // Se o resultado da requisição não der certo:
         if(!resposta.ok) {
             throw new Error ("Não foi possível deletar o cliente") // GET http://localhost:3000/profie 404 (Not Found)
         }
@@ -81,10 +82,10 @@ export const removeCliente = function (id) {
 }
 
 
-// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< PEGAR DADOS DO CLIENTE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< DETALHA CLIENTE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 // detalhaCliente será chamada em edita-cliente.js
-// Vamos usar a id para pegar os dados apenas do cliente que queremos
+// Vamos usar a id para pegar os dados apenas do cliente que queremos editar
 export const detalhaCliente = function(id) {
     return fetch(`http://localhost:3000/profile/${id}`)
     .then(resposta => {
@@ -113,9 +114,10 @@ export const atualizaCliente = (id, email, nome) => {
         })
     })
     // Aqui, vamos fazer sem o 'if', para mostrar que seu uso não é obrogatório.
-    .then(resposta => {
-        return resposta.json()
-    })
+    // .then(resposta => {
+    //     return resposta.json()
+    // }) Esse trecho de código não é necessário para atualizar os dados da API db.json, pois só convertemos para 
+    //json quando pegamos a resposta do servidor e ñ quando gravamos dados nele.
 }
 
 
